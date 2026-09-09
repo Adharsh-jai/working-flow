@@ -22,4 +22,4 @@ spec:
           image: groot321/travel:v1
 
           ports:
-            - containerPort: 90
+            - containerPort: 80
