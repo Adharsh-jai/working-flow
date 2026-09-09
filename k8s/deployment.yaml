@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: groot321/my-image:v1
+          image: groot321/my-bday:v1
 
           ports:
             - containerPort: 80
