@@ -1,98 +1,395 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 Birthday Wish · interactive</title>
+  <!-- all styles + scripts in one file, no backend -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      background: linear-gradient(145deg, #0b0e1a 0%, #1a1f30 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #222;
-        }
+    .birthday-card {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 56px;
+      padding: 2.5rem 2rem 3rem;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.15);
+      transition: all 0.2s ease;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
 
-        header {
-            background: #2563eb;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+    /* 🎈 balloon header */
+    .balloon-icon {
+      font-size: 4.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 8px 12px rgba(255, 200, 0, 0.3));
+      margin-bottom: 0.2rem;
+      letter-spacing: 6px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #feda75, #ffb347, #ff8c5a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0.4rem 0 0.25rem;
+      text-shadow: 0 0 20px rgba(255, 180, 0, 0.2);
+      letter-spacing: -0.5px;
+    }
 
-        h1 {
-            margin-bottom: 15px;
-        }
+    .sub-greeting {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: rgba(255, 255, 240, 0.8);
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px dashed rgba(255, 215, 0, 0.25);
+      padding-bottom: 1rem;
+      display: inline-block;
+    }
 
-        p {
-            margin-bottom: 25px;
-            color: #555;
-        }
+    .name-section {
+      margin: 1.8rem 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem 0.5rem;
+    }
 
-        button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .name-section label {
+      color: #f0e9d0;
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.3px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+    }
 
-        button:hover {
-            background: #1d4ed8;
-        }
+    #nameInput {
+      background: rgba(20, 25, 40, 0.7);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 60px;
+      padding: 0.8rem 1.6rem;
+      font-size: 1.1rem;
+      width: 200px;
+      color: #fff4d6;
+      font-weight: 500;
+      outline: none;
+      transition: 0.25s;
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
 
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
+    #nameInput:focus {
+      border-color: #ffb347;
+      box-shadow: 0 0 20px rgba(255, 180, 50, 0.25), inset 0 0 8px rgba(255, 180, 50, 0.1);
+      background: rgba(25, 30, 50, 0.8);
+    }
+
+    #nameInput::placeholder {
+      color: rgba(255, 235, 180, 0.4);
+      font-weight: 300;
+    }
+
+    .wish-button {
+      background: linear-gradient(145deg, #f7b731, #f39c12);
+      border: none;
+      padding: 0.8rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1a1a2a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 20px rgba(243, 156, 18, 0.35);
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 200, 0.3);
+    }
+
+    .wish-button:hover {
+      transform: scale(1.04) translateY(-3px);
+      background: linear-gradient(145deg, #fcc55a, #f5a623);
+      box-shadow: 0 12px 28px rgba(243, 156, 18, 0.5);
+    }
+
+    .wish-button:active {
+      transform: scale(0.96);
+    }
+
+    /* 🎂 wish display */
+    .wish-output {
+      margin: 2.2rem 0 1.8rem;
+      padding: 1.2rem 1rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 60px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      min-height: 4.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s;
+    }
+
+    #wishMessage {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff9e6;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      word-break: break-word;
+      padding: 0 0.5rem;
+      letter-spacing: 0.3px;
+      line-height: 1.3;
+    }
+
+    #wishMessage .highlight {
+      background: linear-gradient(120deg, #f9d976, #f39c12);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      padding: 0 4px;
+    }
+
+    .action-hint {
+      font-size: 1rem;
+      color: rgba(255, 215, 0, 0.5);
+      margin-top: 1.5rem;
+      letter-spacing: 0.8px;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-hint span {
+      background: rgba(255, 215, 0, 0.08);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 215, 0, 0.08);
+    }
+
+    .footer-emoji {
+      font-size: 2rem;
+      margin-top: 0.2rem;
+      opacity: 0.7;
+    }
+
+    /* sparkle effect for the button */
+    .sparkle {
+      display: inline-block;
+      animation: twinkle 1.4s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .birthday-card { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2.4rem; }
+      #nameInput { width: 160px; font-size: 1rem; }
+      .wish-button { padding: 0.7rem 1.6rem; font-size: 1rem; }
+      #wishMessage { font-size: 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <h2>Travel App ✈️</h2>
-    </header>
+<div class="birthday-card" role="main" aria-label="Birthday wish card">
 
-    <div class="container">
-        <h1>Welcome to My Travel App</h1>
+  <div class="balloon-icon">
+    🎈🎂🎈
+  </div>
 
-        <p>
-            Explore new places and plan your next adventure.
-        </p>
+  <h1>Happy Birthday</h1>
+  <div class="sub-greeting">✨ make a wish ✨</div>
 
-        <button onclick="showMessage()">
-            Start Exploring
-        </button>
+  <!-- name input + button -->
+  <div class="name-section">
+    <label for="nameInput">👤</label>
+    <input type="text" id="nameInput" placeholder="Your name..." value="Alex" maxlength="30" aria-label="Enter name for birthday wish">
+    <button class="wish-button" id="wishBtn">
+      <span class="sparkle">✨</span> Wish <span class="sparkle">✨</span>
+    </button>
+  </div>
 
-        <div id="message"></div>
+  <!-- wish message output -->
+  <div class="wish-output">
+    <div id="wishMessage">
+      <span class="highlight">🎉</span>  Happy Birthday, <span class="highlight" id="nameDisplay">Alex</span>!  <span class="highlight">🎉</span>
     </div>
+  </div>
 
-    <script>
-        function showMessage() {
-            document.getElementById("message").textContent =
-                "🌍 Your next adventure starts here!";
-        }
-    </script>
+  <div class="action-hint">
+    <span>🎁</span>
+    <span>click the sparkle button</span>
+    <span>🎁</span>
+  </div>
+  <div class="footer-emoji">
+    🥳🎊🎉
+  </div>
+</div>
+
+<!-- ========== JavaScript ========== -->
+<script>
+  (function() {
+    "use strict";
+
+    // DOM elements
+    const nameInput = document.getElementById('nameInput');
+    const wishBtn = document.getElementById('wishBtn');
+    const wishMessage = document.getElementById('wishMessage');
+    const nameDisplay = document.getElementById('nameDisplay');
+
+    // array of fun birthday wishes (with placeholders)
+    const wishCollection = [
+      "🎂 Happy Birthday, {name}! May your day be as sweet as cake! 🧁",
+      "🌟 Wishing you a day filled with love & laughter, {name}! 🥳",
+      "🎈 {name}, may all your dreams take flight today! ✨",
+      "🍰 Another trip around the sun, {name}! Enjoy every moment! ☀️",
+      "🎁 {name}, you're a gift to this world! Celebrate big! 🎊",
+      "🌈 Shine bright, {name}! It's your special day! 🎂",
+      "💫 {name}, may the stars align for you today & always! 🌟",
+      "🥂 Cheers to you, {name}! Have a fabulous birthday! 🎉",
+      "🎵 Let the music play, {name}! Happy Birthday! 🎶",
+      "🎈 {name}, today is YOUR day – enjoy every second! 🎁",
+      "🌺 {name}, you make the world brighter. Happy Birthday! 🌞",
+      "🍫 {name}, life is sweet, just like you! Happy Birthday! 🍬",
+      "🎂 Sending you a huge slice of happiness, {name}! 🥳",
+      "🌟 {name}, you're magical. Never forget that! ✨ Birthday blessings!",
+      "🎈 Pop, fizz, clink! {name}, it's time to celebrate! 🥂"
+    ];
+
+    // default name (if input empty)
+    const DEFAULT_NAME = 'friend';
+
+    // function to generate wish with name
+    function generateWish(name) {
+      // if name is empty or just spaces, use default
+      const cleanName = name.trim();
+      const finalName = cleanName.length > 0 ? cleanName : DEFAULT_NAME;
+
+      // pick random wish from collection
+      const randomIndex = Math.floor(Math.random() * wishCollection.length);
+      let rawWish = wishCollection[randomIndex];
+
+      // replace {name} placeholder with finalName
+      rawWish = rawWish.replace(/\{name\}/g, finalName);
+
+      // also replace any leftover {name} variations (just in case)
+      rawWish = rawWish.replace(/\[name\]/g, finalName);
+
+      return { wish: rawWish, name: finalName };
+    }
+
+    // update the UI with new wish
+    function updateWish() {
+      const inputName = nameInput.value;
+      const { wish, name } = generateWish(inputName);
+
+      // update name display (in the wish message)
+      nameDisplay.textContent = name;
+
+      // split wish to keep highlight around name? we want to keep it simple:
+      // we will set innerHTML but preserve the highlight span for name.
+      // we will rebuild:  we want to show the wish with name highlighted.
+      // but we already replaced placeholder, so we need to re-insert highlight.
+      // easiest: we use a template with the name inserted inside a highlight span.
+      // We'll reconstruct: 
+      // But our wishCollection has only one placeholder. we replace and re-wrap.
+      // we'll do a more robust approach:
+      // find the name inside the wish and wrap it with highlight class.
+      // but since we already replaced, we can just split at the name.
+      // We'll do a simpler approach: display wish with name inside a span.highlight.
+
+      // we can rebuild: 
+      const wishText = wish; // contains the name already
+      // we want to highlight the name part inside the wish.
+      // we'll split at the name and wrap.
+      // but be careful: name might appear multiple times? only one.
+      // We'll use a safe method: 
+      const nameIndex = wishText.indexOf(name);
+      if (nameIndex !== -1 && name.length > 0) {
+        // split into before and after
+        const before = wishText.substring(0, nameIndex);
+        const after = wishText.substring(nameIndex + name.length);
+        // build with highlight
+        wishMessage.innerHTML = `${before}<span class="highlight">${name}</span>${after}`;
+      } else {
+        // fallback: just set text, but we still want name highlighted if possible
+        // we could fallback to whole text with no highlight, but we try to keep highlight
+        // in case something weird, we use a generic version:
+        wishMessage.innerHTML = wishText.replace(name, `<span class="highlight">${name}</span>`);
+      }
+
+      // also update the input's value to be the name we used (trimmed)
+      // so that it shows the actual name used (if empty we set default)
+      if (nameInput.value.trim() === '') {
+        nameInput.value = name;
+      }
+    }
+
+    // event listener for button click
+    wishBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      updateWish();
+    });
+
+    // also allow "Enter" key on input field
+    nameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        wishBtn.click();
+      }
+    });
+
+    // initialize with default name (Alex) 
+    // but we also want to set the nameDisplay and wish on load
+    window.addEventListener('load', function() {
+      // set default name in input
+      if (nameInput.value.trim() === '') {
+        nameInput.value = 'Alex';
+      }
+      // generate first wish
+      updateWish();
+    });
+
+  })();
+</script>
 
 </body>
 </html>
-```
