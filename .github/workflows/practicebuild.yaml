@@ -10,12 +10,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DockerImage: my-image
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: checking docker info
-        run: echo "docker info"
+        run: docker info
+      - name: docker images
+        run: docker images
+      - name: remove docker image and all existing containers
+        run: docker rmi -f $(docker images -q) || true && docker rm -f $(docker ps -aq) || true
       - name: Build Docker image
-        run: docker build -t my-image .
+        run: docker build -t ${{ env.DockerImage }} .
+      - name: docker tag
+        run: docker tag ${{ env.DockerImage }} ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:v1
+      - name: push to docker hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:v1
+      
