@@ -34,6 +34,8 @@ jobs:
           sed -i "s|image:.*|image: mydockerhubuser/myapp:${{ github.sha }}|" k8s/deployment.yaml
       - name: Commit changes
         run: |
+          git config user.name "Adharsh-jai"
+          git config user.email "adharshjaison2002@gmail.com"
           git add k8s/deployment.yaml
           git commit -m "Update image"
           git push
