@@ -31,10 +31,10 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:${{ github.sha }}
       - name: Update Kubernetes manifest
         run: |
-          sed -i "s|image:.*|image: mydockerhubuser/myapp:${{ github.sha }}|" deployment.yaml
+          sed -i "s|image:.*|image: mydockerhubuser/myapp:${{ github.sha }}|" k8s/deployment.yaml
       - name: Commit changes
         run: |
-          git add deployment.yaml
+          git add k8s/deployment.yaml
           git commit -m "Update image"
           git push
       
