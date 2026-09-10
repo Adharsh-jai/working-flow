@@ -26,7 +26,15 @@ jobs:
       - name: Build Docker image
         run: docker build -t ${{ env.DockerImage }} .
       - name: docker tag
-        run: docker tag ${{ env.DockerImage }} ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:v1
+        run: docker tag ${{ env.DockerImage }} ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:${{ github.sha }}
       - name: push to docker hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:v1
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:${{ github.sha }}
+      - name: Update Kubernetes manifest
+        run: |
+          sed -i "s|image:.*|image: mydockerhubuser/myapp:${{ github.sha }}|" deployment.yaml
+      - name: Commit changes
+        run: |
+          git add deployment.yaml
+          git commit -m "Update image"
+          git push
       
