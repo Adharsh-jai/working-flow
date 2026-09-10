@@ -33,7 +33,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DockerImage }}:${{ github.sha }}
       - name: Update Kubernetes manifest
         run: |
-          sed -i "s|image:.*|image: groot321/myapp:${{ github.sha }}|" k8s/deployment.yaml
+          sed -i "s|image:.*|image: groot321/my-bday:${{ github.sha }}|" k8s/deployment.yaml
       - name: Commit changes
         run: |
           git config user.name "Adharsh-jai"
