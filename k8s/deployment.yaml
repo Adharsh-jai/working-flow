@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: mydockerhubuser/myapp:be6bb90fee33ae7b74fd668157e5e7a43bd6c579
+          image: groot321/myapp:791395b41c7653938379e9866d89a534458bf878
 
           ports:
             - containerPort: 80
